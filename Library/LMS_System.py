@@ -2,29 +2,29 @@ import json
 
 class Book():
 
-    def __init__(self, title, author, isbn, available = True):
+    def __init__(self, title, author, isbn, available = True): #Constructor initializes class Book with title, author, isbn, and availability
         self.title = title
         self.author = author
         self.isbn = isbn
         self.available = available
 
-    def display_info(self):
+    def display_info(self): #Function to display all information about a book
         status = "Available" if self.available else "Unavailable"
         print(f"Title: {self.title}\nAuthor: {self.author}\nISBN: {self.isbn}\nStatus: {status}\n")
 
 class Library():
     def __init__(self):
-        self.books = []
+        self.books = [] #Creates an empty list on initializing to store books
 
     def add_book(self, book):
-        self.books.append(book)
+        self.books.append(book) #Appends books to the aforementioned list
         print(f"Book '{book.title}' added to the library.\n")
     
     def borrow_book(self, isbn):
-        for book in self.books:
+        for book in self.books: #Loop to sift through the list for a matching ISBN
             if book.isbn == isbn:
                 if book.available:
-                    book.available = False
+                    book.available = False #Set availability to false since the book will be checked out
                     print(f"{book.title} checked out, enjoy!\n")
                     return
                 else:
@@ -35,7 +35,7 @@ class Library():
     def return_book(self, isbn):
         for book in self.books:
             if book.isbn == isbn:
-                if not book.available:
+                if not book.available: #Check to make sure the isbn entered is actually checked out before checking in
                     book.available = True
                     print(f"{book.title} checked back in.\n")
                     return
@@ -44,7 +44,7 @@ class Library():
                     return
         print("Book not found in the library.\n")
     
-    def display_books(self):
+    def display_books(self): #Functions shows all books stored in the library
         if not self.books:
             print("There are no books in the library.\n")
         else:
@@ -53,7 +53,7 @@ class Library():
                 book.display_info()
             print()
     
-    def save_to_file(self, filename):
+    def save_to_file(self, filename): #JSON formatted save system records book information in list "data"
         try:
             data = [
                 {"title": b.title, "author": b.author, "isbn": b.isbn, "available": b.available}
@@ -65,11 +65,11 @@ class Library():
         except Exception as e:
             print("Error saving file:", e)
 
-    def load_from_file(self, filename):
-        try:
+    def load_from_file(self, filename): #Loads all stored books from a JSON format
+        try: #Try/Except handling for various errors
             with open(filename, "r") as file:
                 data = json.load(file)
-                self.books = [Book(**item) for item in data]
+                self.books = [Book(**item) for item in data] #**item unpacks all the data for each book in the list
             print(f"Library loaded from {filename}.")
         except FileNotFoundError:
             print(f"No file named '{filename}' found.")
@@ -84,7 +84,7 @@ def main():
     while True:
         print("\n=======Library Management System=======\n")
         choice = input("1. Add Book\n2. Borrow Book\n3. Return Book\n4. View All Books\n5. Save Library to File\n6. Load Library from File\n7. Exit\n").strip()
-        match choice:
+        match choice: #Simple match/case option menu
             case "1":
                 title = input("Enter title:\n")
                 author = input("\nEnter author:\n")
@@ -110,4 +110,4 @@ def main():
             case _:
                 print("Invalid input, Please enter a number between 1 and 7.\n")
 
-main()
+main() #Run main
