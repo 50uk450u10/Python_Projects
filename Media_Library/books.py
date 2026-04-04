@@ -8,9 +8,5 @@ class Book():
         self.inLibrary = inLibrary
         self.location = location
 
-def display_info(self): #Function to display all information about a book
-    status = "Available" if self.available else "Unavailable"
-    print(f"Title: {self.title}\nAuthor: {self.author}\nISBN: {self.isbn}\nStatus: {status}\n")
-
-def bookSelection():
+def bookSelection(library_data):
     pass
