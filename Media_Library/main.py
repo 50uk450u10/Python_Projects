@@ -23,7 +23,7 @@ def main():
             case 3:
                 books.bookSelection(library_data)
             case 4:
-                print("Exiting watchlist.\n\n")
+                print("Exiting library.\n\n")
                 break
             case _:
                 print("Invalid input.\n\n")
